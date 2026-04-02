@@ -1,52 +1,90 @@
 # CalendarHub
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+CalendarHub is a personal project designed to aggregate all your emails and display your meetings in a single, unified view. It helps you manage your schedule and communications more efficiently by bringing everything together in one place.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## Technologies Used
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- **Backend**: .NET (C#) - Handles data processing, API endpoints, and integration with email and calendar services.
+- **Frontend**: Angular - Provides a modern, responsive user interface for viewing and managing emails and meetings.
+- **Monorepo Management**: Nx - Manages the workspace, build processes, and dependencies for both backend and frontend.
+- **Build Tools**: .NET CLI for backend, Angular CLI for frontend.
+- **Other**: TypeScript, ESLint for code quality.
 
-## Run tasks
+## Prerequisites
 
-To run the dev server for your app, use:
+Before running the project, ensure you have the following installed:
+
+- [.NET SDK](https://dotnet.microsoft.com/download) (version 10.0 or later)
+- [Node.js](https://nodejs.org/) (version 18 or later)
+- [Nx CLI](https://nx.dev/getting-started/installation) (install globally with `npm install -g nx`)
+
+## Getting Started
+
+1. Clone the repository:
+   ```sh
+   git clone <repository-url>
+   cd calendar-hub
+   ```
+
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+
+## Running the Application
+
+### Backend
+
+To run the backend server:
+
+```sh
+npx nx serve backend
+```
+
+This will start the .NET application, typically on `http://localhost:5000` or as configured in `apps/backend/Properties/launchSettings.json`.
+
+### Frontend
+
+To run the frontend development server:
 
 ```sh
 npx nx serve frontend
 ```
 
-To create a production bundle:
+This will start the Angular application, typically on `http://localhost:4200`.
+
+### Running Both Simultaneously
+
+You can run both backend and frontend in separate terminals, or use Nx to manage them.
+
+## Building for Production
+
+### Backend
+
+```sh
+npx nx build backend
+```
+
+### Frontend
 
 ```sh
 npx nx build frontend
 ```
 
-To see all available targets to run for a project, run:
+## Project Structure
 
-```sh
-npx nx show project frontend
-```
+- `apps/backend/`: .NET backend application
+- `apps/frontend/`: Angular frontend application
+- `libs/shared-models/`: Shared TypeScript models and utilities
+- `nx.json`: Nx workspace configuration
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+## Contributing
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+This is a personal project, but feel free to fork and modify as needed.
 
-## Add new projects
+## License
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
-```
-
-To generate a new library, use:
-
-```sh
-npx nx g @nx/angular:lib mylib
-```
+MIT
 
 You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
 
