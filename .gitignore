@@ -1,53 +1,86 @@
-# See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# Root .gitignore for calendar-hub (backend + frontend)
 
-# compiled output
-dist
-tmp
-out-tsc
+# ----- Node / frontend -----
+node_modules/
+/dist/
+/tmp/
+/out-tsc/
+/bazel-out/
+/.angular/cache/
+/.sass-cache/
+/connect.lock
+/coverage/
+/libpeerconnection.log
+/testem.log
+/typings/
+__screenshots__/
+/npm-debug.log
+/yarn-error.log
 
-# dependencies
-node_modules
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
+# VS Code
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.history/
 
-# misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
-
-# System Files
+# OS
 .DS_Store
 Thumbs.db
 
-.nx/cache
-.nx/workspace-data
-.claude/worktrees
-.claude/settings.local.json
+# ----- .NET / backend -----
+**/[Bb]in/
+**/[Oo]bj/
+**/[Tt]est[Rr]esult*/
+**/packages/
+**/*.user
+**/*.rsuser
+**/*.suo
+**/*.userosscache
+**/*.sln.docstates
+.global.json
 
-.angular
+# NuGet
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+!**/packages/repositories.config
 
-__screenshots__/
+# Visual Studio 
+.vs/
 
-# .NET
-**/bin/
-**/obj/
-/artifacts/
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Local user-specific files
+appsettings.local.json
+appsettings.dev.json
+appsettings.qa.json
+appsettings.stg.json
+appsettings.prod.json
+
+# Logs
+*.log
+
+# IDEs
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# stylish or tool-generated
+generated/**
+
+# Keep frontend ignore from existing frontend .gitignore in case this file is evaluated by CI
+/frontend/node_modules/
+/frontend/dist/
+/frontend/out-tsc/
+/frontend/.angular/cache/
+/frontend/.sass-cache/
+/frontend/.history/
+/frontend/npm-debug.log
+/frontend/yarn-error.log
+
+# Keep backend ignore
+/backend/**/[Bb]in/
+/backend/**/[Oo]bj/
