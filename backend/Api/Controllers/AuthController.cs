@@ -27,7 +27,7 @@ public class AuthController(IOAuthService oAuthService, ITokenStore tokenStore) 
         var accessToken = await oAuthService.ExchangeCodeForTokenAsync(provider, code, cancellationToken);
         tokenStore.SetToken(provider, accessToken);
 
-        return Ok(new { provider, connected = true });
+        return Redirect("http://localhost:4200");
     }
 
     [HttpGet("status")]

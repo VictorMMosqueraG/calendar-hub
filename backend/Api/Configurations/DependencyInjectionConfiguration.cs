@@ -20,7 +20,8 @@ public static class DependencyInjectionConfiguration
             options.IdleTimeout = TimeSpan.FromHours(1);
             options.Cookie.HttpOnly = true;
             options.Cookie.IsEssential = true;
-            options.Cookie.SameSite = SameSiteMode.Lax;
+            options.Cookie.SameSite = SameSiteMode.None;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.None;
         });
 
         services.AddScoped<ITokenStore, SessionTokenStore>();
