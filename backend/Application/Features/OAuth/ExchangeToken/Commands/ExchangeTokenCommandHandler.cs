@@ -19,9 +19,9 @@ public class ExchangeTokenCommandHandler(
         CancellationToken cancellationToken)
     {
         var accessToken = await _tokenExchangeService.ExchangeAsync(
-            request.Provider, request.Code, cancellationToken);
+            request.Provider!, request.Code!, cancellationToken);
 
-        _tokenStore.SetToken(request.Provider, accessToken);
+        _tokenStore.SetToken(request.Provider!, accessToken);
 
         return ResultDto.Success(Message.EntityCreateSuccess("Token"));
     }

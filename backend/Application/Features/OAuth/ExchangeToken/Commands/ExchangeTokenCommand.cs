@@ -5,6 +5,6 @@ using MediatR;
 
 public record ExchangeTokenCommand : IRequest<ResultDto>
 {
-    public required string Provider { get; init; }
-    public required string Code { get; init; }
+    public string? Provider { get; init; }
+    public string? Code { get; init; }
 }

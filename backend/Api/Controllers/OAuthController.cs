@@ -24,7 +24,8 @@ public class OAuthController(IMediator mediator) : ControllerBase
     [HttpPost("{provider}/callback")]
     [RouteParameterMapping("provider", "Provider")]
     public async Task<ResultDto> Callback(
-        ExchangeTokenCommand command,
+        [FromBody] ExchangeTokenCommand command,
         CancellationToken cancellationToken
     ) => await mediator.Send(command, cancellationToken);
+
 }
