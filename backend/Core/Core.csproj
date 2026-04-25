@@ -6,14 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CircuitBreaker.Abstractions" Version="1.0.0" />
-    <PackageReference Include="Persistence.Abstractions" Version="1.0.0" />
-    <PackageReference Include="ObjectStorage.Abstractions" Version="1.0.0" />
-    <PackageReference Include="Monitoring.Abstractions" Version="1.0.0" />
-    <PackageReference Include="SecretStore.Abstractions" Version="1.0.1" />
-    <PackageReference Include="HttpWrapper.Abstractions" Version="1.0.2" />
-    <PackageReference Include="MessageBroker.Abstractions" Version="1.0.2" />
-  </ItemGroup>
-
 </Project>

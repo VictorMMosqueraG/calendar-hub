@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 {
+    //FIX: use patter strategy to handle exceptions instead of switch case
     public override void OnException(ExceptionContext context)
     {
         switch (context.Exception)
