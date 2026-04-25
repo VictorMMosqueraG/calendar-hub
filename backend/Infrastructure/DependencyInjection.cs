@@ -3,6 +3,7 @@ namespace Infrastructure;
 using Core.Ports.Auth;
 using Core.Ports.Providers;
 using Infrastructure.Auth;
+using Infrastructure.Providers;
 using Infrastructure.Providers.Google;
 using global::Microsoft.Extensions.Configuration;
 using global::Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,8 @@ public static class DependencyInjection
 
         services.AddHttpClient<OAuthService>();
 
+        services.AddScoped<ITokenStore, SessionTokenStore>();
+        services.AddScoped<ICalendarTokenAccessor, HttpCalendarTokenAccessor>();
         services.AddScoped<ICalendarProvider, GoogleCalendarProvider>();
         services.AddScoped<IOAuthService, OAuthService>();
 

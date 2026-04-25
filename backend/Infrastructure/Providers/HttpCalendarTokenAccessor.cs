@@ -1,4 +1,4 @@
-namespace Api.Services;
+namespace Infrastructure.Providers;
 
 using Core.Ports.Auth;
 using Core.Ports.Providers;

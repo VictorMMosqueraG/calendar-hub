@@ -1,8 +1,5 @@
 using Api.Configurations;
-using Api.Services;
 using Application;
-using Core.Ports.Auth;
-using Core.Ports.Providers;
 using Infrastructure;
 
 namespace Api.Configuration;
@@ -24,8 +21,6 @@ public static class DependencyInjectionConfiguration
             options.Cookie.SecurePolicy = CookieSecurePolicy.None;
         });
 
-        services.AddScoped<ITokenStore, SessionTokenStore>();
-        services.AddScoped<ICalendarTokenAccessor, HttpCalendarTokenAccessor>();
         services.AddInfrastructure(configuration);
         services.AddBusiness();
         services.AddAuthentication();

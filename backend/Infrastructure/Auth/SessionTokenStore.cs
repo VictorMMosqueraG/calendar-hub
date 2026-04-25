@@ -1,6 +1,7 @@
-namespace Api.Services;
+namespace Infrastructure.Auth;
 
 using Core.Ports.Auth;
+using Microsoft.AspNetCore.Http;
 
 public class SessionTokenStore(IHttpContextAccessor httpContextAccessor) : ITokenStore
 {

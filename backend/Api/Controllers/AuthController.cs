@@ -1,21 +1,24 @@
 namespace Api.Controllers;
 
+using Api.Attributes;
+using Application.Features.Auth.GetAuthUrl.Queries;
 using Asp.Versioning;
+using Core.Dtos.ResponsesDto;
 using Core.Ports.Auth;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/auth")]
-public class AuthController(IOAuthService oAuthService, ITokenStore tokenStore) : ControllerBase
+public class AuthController(IMediator mediator, IOAuthService oAuthService, ITokenStore tokenStore) : ControllerBase
 {
     [HttpGet("{provider}")]
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public IActionResult Login(string provider)
-    {
-        var url = oAuthService.GetAuthorizationUrl(provider);
-        return Redirect(url);
-    }
+    [RouteParameterMapping("provider", nameof(GetAuthUrlQuery.Provider))]
+    public async Task<ResultDto> Login(
+        GetAuthUrlQuery query,
+        CancellationToken cancellationToken
+    ) => await mediator.Send(query, cancellationToken);
 
     [HttpGet("{provider}/callback")]
     [ApiExplorerSettings(IgnoreApi = true)]
