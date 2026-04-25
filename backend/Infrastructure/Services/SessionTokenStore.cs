@@ -1,6 +1,6 @@
-namespace Infrastructure.Auth;
+namespace Infrastructure.Services;
 
-using Core.Ports.Auth;
+using Application.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 
 public class SessionTokenStore(IHttpContextAccessor httpContextAccessor) : ITokenStore

@@ -1,6 +1,6 @@
 namespace Infrastructure.Providers;
 
-using Core.Ports.Auth;
+using Application.Interfaces.Services;
 using Core.Ports.Providers;
 
 public class HttpCalendarTokenAccessor(ITokenStore tokenStore) : ICalendarTokenAccessor
