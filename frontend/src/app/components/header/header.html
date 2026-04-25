@@ -1,0 +1,19 @@
+<header class="header">
+  <h1 class="header__title">Calendar Hub</h1>
+
+  <div class="header__status">
+    @if (isConnected()) {
+      <span class="header__badge header__badge--connected">
+        <span class="header__dot"></span>
+        Google Connected
+      </span>
+      <button class="header__btn header__btn--disconnect" (click)="disconnect.emit()">
+        Disconnect
+      </button>
+    } @else {
+      <button class="header__btn header__btn--connect" (click)="connect.emit()">
+        Connect Google
+      </button>
+    }
+  </div>
+</header>

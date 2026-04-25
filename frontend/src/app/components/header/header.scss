@@ -1,0 +1,75 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #e8f5e9;
+    color: #2e7d32;
+
+    &--connected .header__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4caf50;
+    }
+  }
+
+  &__btn {
+    border: none;
+    border-radius: var(--radius);
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+
+    &:active {
+      transform: scale(0.97);
+    }
+
+    &--connect {
+      background: var(--primary);
+      color: white;
+
+      &:hover {
+        background: #3367d6;
+      }
+    }
+
+    &--disconnect {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+
+      &:hover {
+        background: #fce4ec;
+        color: #c62828;
+        border-color: #ef9a9a;
+      }
+    }
+  }
+}

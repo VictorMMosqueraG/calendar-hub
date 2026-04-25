@@ -65,7 +65,8 @@
               "buildTarget": "calendar-hub-web:build:production"
             },
             "development": {
-              "buildTarget": "calendar-hub-web:build:development"
+              "buildTarget": "calendar-hub-web:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

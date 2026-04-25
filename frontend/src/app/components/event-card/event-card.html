@@ -1,0 +1,10 @@
+<div class="event-card">
+  <div class="event-card__time">{{ timeRange() }}</div>
+  <div class="event-card__info">
+    <div class="event-card__title">{{ event().title }}</div>
+    @if (event().location) {
+      <div class="event-card__location">{{ event().location }}</div>
+    }
+  </div>
+  <span class="event-card__provider">{{ event().provider }}</span>
+</div>

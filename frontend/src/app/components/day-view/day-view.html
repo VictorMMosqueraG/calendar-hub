@@ -1,0 +1,51 @@
+<div class="day-view">
+  <div class="day-view__filters">
+    <div class="day-view__date-group">
+      <label class="day-view__label">Desde</label>
+      <input
+        type="date"
+        class="day-view__date-input"
+        [value]="fromInputValue()"
+        (change)="onFromChange($event)"
+      />
+    </div>
+
+    <div class="day-view__date-group">
+      <label class="day-view__label">Hasta</label>
+      <input
+        type="date"
+        class="day-view__date-input"
+        [value]="toInputValue()"
+        (change)="onToChange($event)"
+      />
+    </div>
+
+    <button class="day-view__btn day-view__btn--search" (click)="search()">Buscar</button>
+    <button class="day-view__btn day-view__btn--today" (click)="goToToday()">Hoy</button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="day-view__status">Cargando eventos...</div>
+  } @else if (!isConnected()) {
+    <div class="day-view__status">
+      Conecta tu cuenta de Google para ver tus eventos
+    </div>
+  } @else if (groupedEvents().length === 0) {
+    <div class="day-view__status">
+      No hay eventos en este rango de fechas
+    </div>
+  } @else {
+    <div class="day-view__results">
+      @for (group of groupedEvents(); track group.date) {
+        <div class="day-view__day">
+          <h3 class="day-view__day-title">{{ group.label }}</h3>
+          <div class="day-view__day-events">
+            @for (event of group.events; track event.id) {
+              <app-event-card [event]="event" />
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
