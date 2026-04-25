@@ -1,4 +1,4 @@
-namespace Application.Features.Auth.ExchangeToken.Commands;
+namespace Application.Features.OAuth.ExchangeToken.Commands;
 
 using Core.Dtos.ResponsesDto;
 using MediatR;

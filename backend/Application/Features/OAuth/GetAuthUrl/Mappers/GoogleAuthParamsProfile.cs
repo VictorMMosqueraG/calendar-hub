@@ -1,6 +1,6 @@
-namespace Application.Features.Auth.GetAuthUrl.Mappers;
+namespace Application.Features.OAuth.GetAuthUrl.Mappers;
 
-using Application.Features.Auth.GetAuthUrl.Dtos;
+using Application.Features.OAuth.GetAuthUrl.Dtos;
 using AutoMapper;
 using Core.Dtos.AppSettingDto;
 

@@ -1,4 +1,4 @@
-namespace Application.Features.Auth.ExchangeToken.Dtos;
+namespace Application.Features.OAuth.ExchangeToken.Dtos;
 
 public record OAuthTokenResponseDto
 {

@@ -1,4 +1,4 @@
-namespace Application.Features.Auth.GetAuthUrl.Dtos;
+namespace Application.Features.OAuth.GetAuthUrl.Dtos;
 
 public record GetAuthUrlResponseDto
 {

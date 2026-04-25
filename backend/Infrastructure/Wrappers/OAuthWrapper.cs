@@ -1,7 +1,7 @@
 namespace Infrastructure.Wrappers;
 
-using Application.Features.Auth.ExchangeToken.Dtos;
-using Application.Features.Auth.GetAuthUrl.Dtos;
+using Application.Features.OAuth.ExchangeToken.Dtos;
+using Application.Features.OAuth.GetAuthUrl.Dtos;
 using AutoMapper;
 using Core.Dtos.AppSettingDto;
 using Application.Interfaces.Wrappers;
@@ -17,13 +17,14 @@ public class OAuthWrapper(
 {
     private readonly OAuthSettingsDto _settings = oauthSettings.Value;
 
-    public string GetAuthorizationUrl(string providerName)
+    public GetAuthUrlResponseDto GetAuthorizationUrl(string providerName)
     {
         var provider = GetProviderSettings(providerName);
         var authParams = mapper.Map<GoogleAuthParamsDto>(provider);
         var queryParams = QueryBuilder.ToDictionary(authParams, JsonNamingPolicy.SnakeCaseLower);
+        var url = QueryBuilder.BuildUrl(provider.AuthUrl!, queryParams);
 
-        return QueryBuilder.BuildUrl(provider.AuthUrl!, queryParams);
+        return new GetAuthUrlResponseDto { Url = url };
     }
 
     public async Task<string> ExchangeCodeForTokenAsync(

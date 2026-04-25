@@ -1,9 +1,9 @@
 namespace Api.Controllers;
 
 using Api.Attributes;
-using Application.Features.Auth.ExchangeToken.Commands;
-using Application.Features.Auth.GetAuthUrl.Dtos;
-using Application.Features.Auth.GetAuthUrl.Queries;
+using Application.Features.OAuth.ExchangeToken.Commands;
+using Application.Features.OAuth.GetAuthUrl.Dtos;
+using Application.Features.OAuth.GetAuthUrl.Queries;
 using Asp.Versioning;
 using Core.Dtos.ResponsesDto;
 using MediatR;

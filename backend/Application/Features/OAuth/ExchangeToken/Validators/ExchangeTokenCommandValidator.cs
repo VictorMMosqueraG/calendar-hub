@@ -1,6 +1,6 @@
-namespace Application.Features.Auth.ExchangeToken.Validators;
+namespace Application.Features.OAuth.ExchangeToken.Validators;
 
-using Application.Features.Auth.ExchangeToken.Commands;
+using Application.Features.OAuth.ExchangeToken.Commands;
 using FluentValidation;
 
 public class ExchangeTokenCommandValidator : AbstractValidator<ExchangeTokenCommand>

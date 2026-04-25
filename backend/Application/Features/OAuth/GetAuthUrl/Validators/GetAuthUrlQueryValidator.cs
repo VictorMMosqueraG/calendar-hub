@@ -1,6 +1,6 @@
-namespace Application.Features.Auth.GetAuthUrl.Validators;
+namespace Application.Features.OAuth.GetAuthUrl.Validators;
 
-using Application.Features.Auth.GetAuthUrl.Queries;
+using Application.Features.OAuth.GetAuthUrl.Queries;
 using FluentValidation;
 
 public class GetAuthUrlQueryValidator : AbstractValidator<GetAuthUrlQuery>

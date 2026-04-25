@@ -1,6 +1,6 @@
-namespace Application.Features.Auth.GetAuthUrl.Queries;
+namespace Application.Features.OAuth.GetAuthUrl.Queries;
 
-using Application.Features.Auth.GetAuthUrl.Dtos;
+using Application.Features.OAuth.GetAuthUrl.Dtos;
 using Core.Dtos.ResponsesDto;
 using Core.Messages;
 using Application.Interfaces.Wrappers;
@@ -16,9 +16,9 @@ public class GetAuthUrlQueryHandler(
         GetAuthUrlQuery request,
         CancellationToken cancellationToken)
     {
-        var url = _oAuthWrapper.GetAuthorizationUrl(request.Provider!);
+        var authUrl = _oAuthWrapper.GetAuthorizationUrl(request.Provider);
 
-        var result = ResultDto<GetAuthUrlResponseDto>.Success(new() { Url = url });
+        var result = ResultDto<GetAuthUrlResponseDto>.Success(authUrl);
         result.Message = Message.GetAllData;
 
         return result;

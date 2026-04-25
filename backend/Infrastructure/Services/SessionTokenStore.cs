@@ -1,5 +1,6 @@
 namespace Infrastructure.Services;
 
+using Application.Features.Auth.GetStatus.Dtos;
 using Application.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 
@@ -18,8 +19,8 @@ public class SessionTokenStore(IHttpContextAccessor httpContextAccessor) : IToke
     public void RemoveToken(string providerName)
         => httpContextAccessor.HttpContext?.Session.Remove(GetKey(providerName));
 
-    public Dictionary<string, bool> GetConnectedProviders()
-        => Providers.ToDictionary(p => p, p => !string.IsNullOrEmpty(GetToken(p)));
+    public GetStatusResponseDto GetConnectedProviders()
+        => new() { Providers = Providers.ToDictionary(p => p, p => !string.IsNullOrEmpty(GetToken(p))) };
 
     private static string GetKey(string providerName)
         => $"{KeyPrefix}{providerName.ToLower()}";

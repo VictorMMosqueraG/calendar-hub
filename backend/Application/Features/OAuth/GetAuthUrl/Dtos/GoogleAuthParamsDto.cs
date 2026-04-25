@@ -1,6 +1,6 @@
-namespace Application.Features.Auth.GetAuthUrl.Dtos;
+namespace Application.Features.OAuth.GetAuthUrl.Dtos;
 
-public class GoogleAuthParamsDto
+public record GoogleAuthParamsDto
 {
     public string? ClientId { get; init; }
     public string? RedirectUri { get; init; }
