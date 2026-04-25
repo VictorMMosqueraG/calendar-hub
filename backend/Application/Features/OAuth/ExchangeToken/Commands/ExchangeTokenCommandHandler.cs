@@ -1,28 +1,28 @@
 namespace Application.Features.OAuth.ExchangeToken.Commands;
 
+using Application.Features.OAuth.ExchangeToken.Services;
+using Application.Interfaces.Services;
 using Core.Dtos.ResponsesDto;
 using Core.Messages;
-using Application.Interfaces.Services;
-using Application.Interfaces.Wrappers;
 using MediatR;
 
 public class ExchangeTokenCommandHandler(
-    IOAuthWrapper oAuthWrapper,
+    TokenExchangeService tokenExchangeService,
     ITokenStore tokenStore
 ) : IRequestHandler<ExchangeTokenCommand, ResultDto>
 {
-    private readonly IOAuthWrapper _oAuthWrapper = oAuthWrapper;
+    private readonly TokenExchangeService _tokenExchangeService = tokenExchangeService;
     private readonly ITokenStore _tokenStore = tokenStore;
 
     public async Task<ResultDto> Handle(
         ExchangeTokenCommand request,
         CancellationToken cancellationToken)
     {
-        var accessToken = await _oAuthWrapper
-            .ExchangeCodeForTokenAsync(request.Provider, request.Code, cancellationToken);
-            
+        var accessToken = await _tokenExchangeService.ExchangeAsync(
+            request.Provider, request.Code, cancellationToken);
+
         _tokenStore.SetToken(request.Provider, accessToken);
-        
+
         return ResultDto.Success(Message.EntityCreateSuccess("Token"));
     }
 }

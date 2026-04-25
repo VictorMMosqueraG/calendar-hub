@@ -94,13 +94,13 @@ public static class QueryBuilder
     private static string FormatDate(object value)
     {
         if (value is DateTime dt)
-            return dt.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return dt.ToString("o", CultureInfo.InvariantCulture);
 
         if (value is DateOnly dateOnly)
             return dateOnly.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 
         if (value is DateTimeOffset dto)
-            return dto.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return dto.ToString("o", CultureInfo.InvariantCulture);
 
         return value.ToString()!;
     }

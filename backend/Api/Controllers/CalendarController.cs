@@ -3,6 +3,7 @@ namespace Api.Controllers;
 using Application.Features.Calendar.GetEvents.Dtos;
 using Application.Features.Calendar.GetEvents.Queries;
 using Asp.Versioning;
+using Core.Dtos.ResponsesDto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,8 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 public class CalendarController(IMediator mediator) : ControllerBase
 {
     [HttpGet("events")]
-    public async Task<List<GetEventsResponseDto>> GetEvents(
+    public async Task<ResultDto<List<GetEventsResponseDto>>> GetEvents(
         [FromQuery] GetEventsQuery query,
         CancellationToken cancellationToken
-    )=> await mediator.Send(query, cancellationToken);
+    ) => await mediator.Send(query, cancellationToken);
 }

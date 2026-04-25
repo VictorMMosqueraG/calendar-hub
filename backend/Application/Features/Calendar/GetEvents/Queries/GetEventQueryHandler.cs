@@ -1,36 +1,39 @@
 namespace Application.Features.Calendar.GetEvents.Queries;
 
 using Application.Features.Calendar.GetEvents.Dtos;
-using AutoMapper;
-using Core.Ports.Providers;
+using Application.Features.Calendar.GetEvents.Services;
+using Application.Interfaces.Wrappers;
+using Core.Dtos.ResponsesDto;
+using Core.Messages;
 using MediatR;
 
 public class GetEventsQueryHandler(
-    IEnumerable<ICalendarProvider> providers,
-    IMapper mapper
-) : IRequestHandler<GetEventsQuery, List<GetEventsResponseDto>>
+    ICalendarProvider calendarProvider,
+    CalendarRequestService calendarRequestService,
+    CalendarResponseService calendarResponseService
+) : IRequestHandler<GetEventsQuery, ResultDto<List<GetEventsResponseDto>>>
 {
-    private readonly IReadOnlyList<ICalendarProvider> _providers = providers.ToList();
-    private readonly IMapper _mapper = mapper;
+    private readonly ICalendarProvider _calendarProvider = calendarProvider;
+    private readonly CalendarRequestService _calendarRequestService = calendarRequestService;
+    private readonly CalendarResponseService _calendarResponseService = calendarResponseService;
 
-    public async Task<List<GetEventsResponseDto>> Handle(
-        GetEventsQuery    request,
+    public async Task<ResultDto<List<GetEventsResponseDto>>> Handle(
+        GetEventsQuery request,
         CancellationToken cancellationToken)
     {
-        var activeProviders = _providers.Where(p => p.IsAvailable).ToList();
+        var calendarRequest = _calendarRequestService.Build(request);
 
-        if (activeProviders.Count == 0)
-            return [];
+        if (calendarRequest is null)
+            return ResultDto<List<GetEventsResponseDto>>.Success([]);
 
-        var tasks = activeProviders
-            .Select(p => p.GetEventsAsync(request.From, request.To, cancellationToken));
+        var response = await _calendarProvider.GetEventsAsync(
+            calendarRequest.Value.Url, calendarRequest.Value.AccessToken, cancellationToken);
 
-        var results = await Task.WhenAll(tasks);
+        var events = _calendarResponseService.Map(response);
 
-        return results
-            .SelectMany(r => r)
-            .OrderBy(e => e.Start)
-            .Select(_mapper.Map<GetEventsResponseDto>)
-            .ToList();
+        var result = ResultDto<List<GetEventsResponseDto>>.Success(events);
+        result.Message = Message.GetAllData;
+
+        return result;
     }
 }

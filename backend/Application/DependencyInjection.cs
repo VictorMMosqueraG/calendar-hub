@@ -1,5 +1,8 @@
 namespace Application;
 
+using Application.Features.Calendar.GetEvents.Services;
+using Application.Features.OAuth.ExchangeToken.Services;
+using Application.Features.OAuth.GetAuthUrl.Services;
 using Behaviours;
 using FluentValidation;
 using MediatR;
@@ -14,6 +17,11 @@ public static class DependencyInjection
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+
+        services.AddScoped<AuthUrlBuilderService>();
+        services.AddScoped<TokenExchangeService>();
+        services.AddScoped<CalendarRequestService>();
+        services.AddScoped<CalendarResponseService>();
 
         return services;
     }

@@ -1,8 +1,8 @@
-namespace Infrastructure.Helpers;
+namespace Infrastructure.Extensions;
 
 using System.Text.Json;
 
-public static class JsonOptionsHelper
+public static class JsonOptionsExtension
 {
     public static readonly JsonSerializerOptions SnakeCaseOptions = new()
     {
