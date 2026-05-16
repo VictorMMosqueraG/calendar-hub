@@ -1,6 +1,7 @@
 namespace Application.Features.Calendar.GetEvents.Validators;
 
 using Application.Features.Calendar.GetEvents.Queries;
+using Core.Messages;
 using FluentValidation;
 
 public class GetEventsQueryValidator : AbstractValidator<GetEventsQuery>
@@ -9,12 +10,12 @@ public class GetEventsQueryValidator : AbstractValidator<GetEventsQuery>
     {
         RuleFor(x => x.From)
             .NotEmpty()
-            .WithMessage("La fecha de inicio es requerida.");
+            .WithMessage(Message.FromDateRequired);
 
         RuleFor(x => x.To)
             .NotEmpty()
-            .WithMessage("La fecha de fin es requerida.")
+            .WithMessage(Message.ToDateRequired)
             .GreaterThan(x => x.From)
-            .WithMessage("La fecha de fin debe ser mayor a la fecha de inicio.");
+            .WithMessage(Message.ToDateMustBeGreaterThanFrom);
     }
 }

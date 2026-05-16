@@ -12,4 +12,15 @@ public static class Message
     public static string NotFoundEntity(string entity, string value) => $"{entity} {value} no encontrado";
     public static string EmailSentValid = "Se finalizo el proceso de enviar correos";
     public static string InvalidSupportData(string value) => $"Tipo de recordatorio no soportado {value}";
+
+    public const string FromDateRequired = "The start date is required.";
+    public const string ToDateRequired = "The end date is required.";
+    public const string ToDateMustBeGreaterThanFrom = "The end date must be greater than the start date.";
+
+    public const string ProviderRequired = "The provider is required.";
+    public const string ProviderNotSupported = "The provider is not supported.";
+    public const string CodeRequired = "The authorization code is required.";
+
+    public static string OAuthProviderNotConfigured(string provider) => $"{provider} OAuth is not configured.";
+    public static string UnknownProvider(string provider) => $"Unknown provider: {provider}";
 }

@@ -1,31 +1,26 @@
 namespace Application.Features.Calendar.GetEvents.Services;
 
-using Application.Features.Calendar.GetEvents.Dtos;
 using Application.Features.Calendar.GetEvents.Queries;
+using Application.Features.Calendar.GetEvents.Interfaces;
 using Application.Interfaces.Services;
-using AutoMapper;
-using Core.Dtos.AppSettingDto;
-using Microsoft.Extensions.Options;
+using Core.Constants;
 
 public class CalendarRequestService(
     ITokenStore tokenStore,
-    IOptions<CalendarSettingsDto> calendarSettings,
-    IMapper mapper
-)
+    ICalendarUrlBuilder calendarUrlBuilder
+) : ICalendarRequestBuilder
 {
     private readonly ITokenStore _tokenStore = tokenStore;
-    private readonly CalendarSettingsDto _settings = calendarSettings.Value;
-    private readonly IMapper _mapper = mapper;
+    private readonly ICalendarUrlBuilder _calendarUrlBuilder = calendarUrlBuilder;
 
     public (string Url, string AccessToken)? Build(GetEventsQuery query)
     {
-        var accessToken = _tokenStore.GetToken("Google");
+        var accessToken = _tokenStore.GetToken(ProviderConstant.Google);
 
-        if (string.IsNullOrEmpty(accessToken))
+        if (accessToken is null or "")
             return null;
 
-        var queryParams = _mapper.Map<GoogleCalendarQueryParamsDto>(query);
-        var url = queryParams.ToUrl(_settings.GoogleBaseUrl!);
+        var url = _calendarUrlBuilder.Build(query);
 
         return (url, accessToken);
     }

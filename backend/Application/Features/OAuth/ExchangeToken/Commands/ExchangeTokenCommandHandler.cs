@@ -18,7 +18,7 @@ public class ExchangeTokenCommandHandler(
         ExchangeTokenCommand request,
         CancellationToken cancellationToken)
     {
-        var accessToken = await _tokenExchangeService.ExchangeAsync(
+        var accessToken = await _tokenExchangeService.ExchangeCodeForTokenAsync(
             request.Provider!, request.Code!, cancellationToken);
 
         _tokenStore.SetToken(request.Provider!, accessToken);

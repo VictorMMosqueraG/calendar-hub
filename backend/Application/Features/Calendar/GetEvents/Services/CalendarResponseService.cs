@@ -1,9 +1,10 @@
 namespace Application.Features.Calendar.GetEvents.Services;
 
 using Application.Features.Calendar.GetEvents.Dtos;
+using Application.Features.Calendar.GetEvents.Interfaces;
 using AutoMapper;
 
-public class CalendarResponseService(IMapper mapper)
+public class CalendarResponseService(IMapper mapper) : ICalendarResponseMapper
 {
     private readonly IMapper _mapper = mapper;
 

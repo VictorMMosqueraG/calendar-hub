@@ -1,8 +1,13 @@
 namespace Application;
 
+using Application.Features.Calendar.GetEvents.Builders;
+using Application.Features.Calendar.GetEvents.Interfaces;
 using Application.Features.Calendar.GetEvents.Services;
 using Application.Features.OAuth.ExchangeToken.Services;
-using Application.Features.OAuth.GetAuthUrl.Services;
+using Application.Features.OAuth.GetAuthUrl.Builders;
+using Application.Features.OAuth.GetAuthUrl.Interfaces;
+using Application.Features.OAuth.Interfaces;
+using Application.Features.OAuth.Services;
 using Behaviours;
 using FluentValidation;
 using MediatR;
@@ -18,10 +23,13 @@ public static class DependencyInjection
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
-        services.AddScoped<AuthUrlBuilderService>();
+        services.AddScoped<IOAuthProviderResolver, OAuthProviderResolver>();
+        services.AddScoped<IAuthUrlBuilder, AuthUrlBuilder>();
         services.AddScoped<TokenExchangeService>();
-        services.AddScoped<CalendarRequestService>();
-        services.AddScoped<CalendarResponseService>();
+        services.AddScoped<ICalendarRequestBuilder, CalendarRequestService>();
+        services.AddScoped<ICalendarResponseMapper, CalendarResponseService>();
+        services.AddScoped<ICalendarEventRetriever, CalendarEventRetriever>();
+        services.AddScoped<CalendarUrlBuilder>();
 
         return services;
     }

@@ -1,26 +1,27 @@
 namespace Application.Features.OAuth.GetAuthUrl.Queries;
 
 using Application.Features.OAuth.GetAuthUrl.Dtos;
-using Application.Features.OAuth.GetAuthUrl.Services;
+using Application.Features.OAuth.GetAuthUrl.Interfaces;
 using Core.Dtos.ResponsesDto;
 using Core.Messages;
 using MediatR;
 
 public class GetAuthUrlQueryHandler(
-    AuthUrlBuilderService authUrlBuilderService
+    IAuthUrlBuilder authUrlBuilder
 ) : IRequestHandler<GetAuthUrlQuery, ResultDto<GetAuthUrlResponseDto>>
 {
-    private readonly AuthUrlBuilderService _authUrlBuilderService = authUrlBuilderService;
+    private readonly IAuthUrlBuilder _authUrlBuilder = authUrlBuilder;
 
-    public async Task<ResultDto<GetAuthUrlResponseDto>> Handle(
+    public Task<ResultDto<GetAuthUrlResponseDto>> Handle(
         GetAuthUrlQuery request,
         CancellationToken cancellationToken)
     {
-        var authUrl = _authUrlBuilderService.Build(request.Provider);
+        var authUrl = _authUrlBuilder.BuildAuthUrl(request.Provider);
 
-        var result = ResultDto<GetAuthUrlResponseDto>.Success(authUrl);
-        result.Message = Message.GetAllData;
-
-        return result;
+        return Task.FromResult(new ResultDto<GetAuthUrlResponseDto>
+        {
+            Results = authUrl,
+            Message = Message.GetAllData
+        });
     }
 }

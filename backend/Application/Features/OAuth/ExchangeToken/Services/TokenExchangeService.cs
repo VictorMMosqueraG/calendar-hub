@@ -1,38 +1,30 @@
 namespace Application.Features.OAuth.ExchangeToken.Services;
 
 using Application.Features.OAuth.ExchangeToken.Dtos;
+using Application.Features.OAuth.ExchangeToken.Extensions;
+using Application.Features.OAuth.Interfaces;
 using Application.Interfaces.Wrappers;
 using AutoMapper;
-using Core.Dtos.AppSettingDto;
-using Microsoft.Extensions.Options;
 
 public class TokenExchangeService(
     IOAuthWrapper oAuthWrapper,
-    IOptions<OAuthSettingsDto> oauthSettings,
+    IOAuthProviderResolver providerResolver,
     IMapper mapper
 )
 {
     private readonly IOAuthWrapper _oAuthWrapper = oAuthWrapper;
-    private readonly OAuthSettingsDto _settings = oauthSettings.Value;
+    private readonly IOAuthProviderResolver _providerResolver = providerResolver;
     private readonly IMapper _mapper = mapper;
 
-    public async Task<string> ExchangeAsync(
+    public async Task<string> ExchangeCodeForTokenAsync(
         string providerName,
         string code,
         CancellationToken cancellationToken)
     {
-        var provider = ResolveProvider(providerName);
-        var exchangeParams = _mapper.Map<GoogleTokenExchangeParamsDto>(provider);
-        exchangeParams = exchangeParams with { Code = code };
+        var provider = _providerResolver.ResolveByName(providerName);
+        var exchangeParams = _mapper.Map<GoogleTokenExchangeParamsDto>(provider) with { Code = code };
 
         return await _oAuthWrapper.ExchangeCodeForTokenAsync(
-            provider.TokenUrl!, exchangeParams.ToDictionary(), cancellationToken);
+            provider.TokenUrl ?? string.Empty, exchangeParams.ToDictionary(), cancellationToken);
     }
-
-    private OAuthProviderSettingsDto ResolveProvider(string providerName)
-        => providerName.ToLower() switch
-        {
-            "google" => _settings.Google ?? throw new InvalidOperationException("Google OAuth not configured."),
-            _ => throw new ArgumentException($"Unknown provider: {providerName}")
-        };
 }
