@@ -41,6 +41,11 @@ namespace Api.Filters
                     var mediaType = operation.RequestBody.Content[contentType];
                     RemovePropertiesFromSchema(mediaType.Schema, routeMappingAttributes, context);
                 }
+
+                if (HasNoRemainingProperties(operation.RequestBody, context))
+                {
+                    operation.RequestBody = null;
+                }
             }
         }
 
@@ -69,6 +74,24 @@ namespace Api.Filters
                     }
                 }
             }
+        }
+
+        private static bool HasNoRemainingProperties(OpenApiRequestBody requestBody, OperationFilterContext context)
+        {
+            return requestBody.Content.Values.All(content =>
+            {
+                var schema = ResolveSchema(content.Schema, context);
+                return schema?.Properties is null || schema.Properties.Count == 0;
+            });
+        }
+
+        private static OpenApiSchema? ResolveSchema(OpenApiSchema? schema, OperationFilterContext context)
+        {
+            if (schema?.Reference is null) return schema;
+
+            return context.SchemaRepository.Schemas.TryGetValue(schema.Reference.Id, out var resolved)
+                ? resolved
+                : schema;
         }
 
         private static string ToSnakeCase(string input)

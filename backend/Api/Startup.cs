@@ -59,6 +59,7 @@ public class Startup(IConfiguration configuration)
         }
 
         app.UseCors("AllowAll");
+        app.AddSwaggerConfiguration(swaggerSettings);
         app.UseRouting();
         app.UseSession();
         app.UseAuthentication();
@@ -68,7 +69,5 @@ public class Startup(IConfiguration configuration)
         {
             endpoints.MapControllers();
         });
-
-        app.AddSwaggerConfiguration(swaggerSettings);
     }
 }

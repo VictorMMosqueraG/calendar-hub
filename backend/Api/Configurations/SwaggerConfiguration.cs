@@ -36,7 +36,7 @@ public static class SwaggerConfiguration
 
             var xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml", SearchOption.TopDirectoryOnly);
             foreach (var xmlFile in xmlFiles)
-                options.IncludeXmlComments(xmlFile);
+                options.IncludeXmlComments(xmlFile, includeControllerXmlComments: true);
 
             options.SchemaFilter<SnakeSchemaFilter>();
             options.OperationFilter<SnakeSchemaFilter>();
